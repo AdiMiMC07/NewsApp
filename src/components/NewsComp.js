@@ -15,7 +15,7 @@ export class NewsComp extends Component {
   }
   async componentDidMount(){
     this.setState({loading : true});
-    let data = await fetch(`https://newsapi.org/v2/top-headlines?country=in&apiKey=0e789de4b52b42a98f40321445569b74&page=1&pagesize=${this.props.pageSize}`);
+    let data = await fetch(`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=0e789de4b52b42a98f40321445569b74&page=1&pagesize=${this.props.pageSize}`);
     let parsedData = await data.json();
     this.setState({
       articles : parsedData.articles,
@@ -25,7 +25,7 @@ export class NewsComp extends Component {
   }
   handleNextClick = async ()=>{
     this.setState({loading : true});
-    let data = await fetch(`https://newsapi.org/v2/top-headlines?country=in&apiKey=0e789de4b52b42a98f40321445569b74&page=${this.state.page + 1}&pagesize=${this.props.pageSize}`);
+    let data = await fetch(`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=0e789de4b52b42a98f40321445569b74&page=${this.state.page + 1}&pagesize=${this.props.pageSize}`);
     let parsedData = await data.json();
     this.setState({
       articles : parsedData.articles,
@@ -35,7 +35,7 @@ export class NewsComp extends Component {
   }
   handlePrevClick = async ()=>{
     this.setState({loading : true});
-    let data = await fetch(`https://newsapi.org/v2/top-headlines?country=in&apiKey=0e789de4b52b42a98f40321445569b74&page=${this.state.page - 1}&pagesize=${this.props.pageSize}`);
+    let data = await fetch(`https://newsapi.org/v2/top-headlines?country=${this.props.country}&category=${this.props.category}&apiKey=0e789de4b52b42a98f40321445569b74&page=${this.state.page - 1}&pagesize=${this.props.pageSize}`);
     let parsedData = await data.json();
     this.setState({
       articles : parsedData.articles,
@@ -51,7 +51,7 @@ export class NewsComp extends Component {
         <div className="row mt-3">
           {!this.state.loading && this.state.articles.map((element)=>{
           return <div className="col-md-4 my-2" key={element.url}>
-                      <NewsItem title = {element.title?element.title.slice(0,50)+"...":""} description = {element.description?element.description.slice(0,80)+"...":""} imgUrl={element.urlToImage?element.urlToImage:"https://cdn.pixabay.com/photo/2014/03/24/17/16/paper-295243_1280.png"} newsId = {element.url}/>
+                      <NewsItem title = {element.title?element.title.slice(0,50)+"...":""} description = {element.description?element.description.slice(0,80)+"...":""} imgUrl={element.urlToImage?element.urlToImage:"https://cdn.pixabay.com/photo/2014/03/24/17/16/paper-295243_1280.png"} newsId = {element.url} author={element.author?element.author:""} source={element.source.name?element.source.name:""} date={(new Date(element.publishedAt?element.publishedAt:"").toGMTString()).slice(0,17)}/>
                   </div>
           })}
         </div>
