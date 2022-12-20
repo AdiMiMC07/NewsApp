@@ -8,7 +8,7 @@ const NewsComp =(props)=>{
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [totalResults, setTotalResults] = useState(0);  
-  // document.title = "NewsKabutar - " + ( props.title==="General"?"Daily news headlines": props.title);
+  document.title = "NewsKabutar - " + (props.title==="General"?"Daily news headlines":props.title);
 
   const updateNews = async (pageNum)=>{
     props.setProgress(0);
