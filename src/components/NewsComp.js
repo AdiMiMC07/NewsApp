@@ -12,7 +12,7 @@ const NewsComp =(props)=>{
 
   const updateNews = async (pageNum)=>{
     props.setProgress(0);
-    let data = await fetch(`https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=0e789de4b52b42a98f40321445569b74&page=${pageNum}&pagesize=${props.pageSize}`);
+    let data = await fetch(`https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apikey}&page=${pageNum}&pagesize=${props.pageSize}`);
     props.setProgress(30);
     let parsedData = await data.json();
     props.setProgress(70);
@@ -29,7 +29,7 @@ const NewsComp =(props)=>{
   
   const fetchData = async ()=>{
     if (page<Math.ceil(totalResults)/props.pageSize){
-      let data = await fetch(`https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=0e789de4b52b42a98f40321445569b74&page=${page+1}&pagesize=${props.pageSize}`);
+      let data = await fetch(`https://newsapi.org/v2/top-headlines?country=${props.country}&category=${props.category}&apiKey=${props.apikey}&page=${page+1}&pagesize=${props.pageSize}`);
       let parsedData = await data.json();
       setArticle(articles.concat(parsedData.articles));
       setPage(page+1);
